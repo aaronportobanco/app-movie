@@ -5,7 +5,7 @@ import './globals.css';
   import { StatusBar } from 'expo-status-bar';
   import * as React from 'react';
   import { Platform } from 'react-native';
-  import { NAV_THEME } from '../lib/constants';
+  import { NAV_THEME } from '../constants/constants';
   import { useColorScheme } from '../lib/useColorScheme';
 
   const LIGHT_THEME: Theme = {
@@ -48,7 +48,20 @@ import './globals.css';
     return (
       <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
         <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-        <Stack />
+        <Stack >
+          <Stack.Screen
+            name="(tabs)"
+            options={{
+              headerShown: false, // Hide the header for the tabs screen
+            }}
+          />
+          <Stack.Screen
+            name="movies/[id]"
+            options={{
+              headerShown: false, // Hide the header for the movie details screen
+            }}
+          />
+        </Stack>
       </ThemeProvider>
     );
   }

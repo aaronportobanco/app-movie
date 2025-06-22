@@ -1,12 +1,14 @@
 import { View } from "react-native";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
+import { useColorScheme } from "@/lib/useColorScheme";
 
 export default function Index() {
+  const { toggleColorScheme } = useColorScheme();
   return (
     <View className="flex-1 items-center justify-center">
-      <Button className="bg-blue-500">
-        <Text className="text-center text-black dark:text-white">
+      <Button className="bg-blue-500" onPress={toggleColorScheme}>
+        <Text className="text-center text-white">
           Click Me{" "}
         </Text>
       </Button>

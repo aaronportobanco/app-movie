@@ -10,7 +10,6 @@ export default function Index() {
       <Button className="bg-blue-500" onPress={toggleColorScheme}>
         <Text className="text-center text-white">Click Me </Text>
       </Button>
-
     </View>
   );
 }

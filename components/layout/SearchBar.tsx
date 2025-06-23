@@ -7,6 +7,7 @@ interface Props {
   onPress?: () => void;
   value?: string;
   onChangeText?: (text: string) => void;
+  autoFocus?: boolean;
 }
 
 const SearchBar = ({
@@ -14,6 +15,7 @@ const SearchBar = ({
   onPress,
   value,
   onChangeText,
+  autoFocus,
 }: Props) => {
   return (
     <View className="flex-row items-center bg-dark-200 rounded-full px-5 py-4">
@@ -26,6 +28,7 @@ const SearchBar = ({
         placeholderTextColor="#a8b5db"
         className="flex-1 ml-2 text-white"
         returnKeyType="search" // Muestra "search" en el teclado
+        autoFocus={autoFocus}
       />
     </View>
   );

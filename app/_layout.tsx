@@ -16,7 +16,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { Platform } from "react-native";
-import { NAV_THEME } from "../constants/constants";
+import { NAV_THEME } from "../constants/navTheme";
 import { useColorScheme } from "../lib/useColorScheme";
 
 const LIGHT_THEME: Theme = {
@@ -74,7 +74,7 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
-          name="movies/[id]"
+          name="movie-screen/[id]"
           options={{
             headerShown: false, // Hide the header for the movie details screen
           }}

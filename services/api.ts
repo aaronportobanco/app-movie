@@ -8,8 +8,6 @@ export const TMDB_CONFIG = {
 };
 
 export const fetchMovies = async ({ query }: { query: string }) => {
-  // PASO DE DEPURACIÓN: Verifica si la clave de API se está cargando.
-  console.log("Clave de API utilizada:", TMDB_CONFIG.API_KEY);
 
   // Para los endpoints v3, la clave de API debe ir como parámetro en la URL.
   const apiKeyParam = `api_key=${TMDB_CONFIG.API_KEY}`;

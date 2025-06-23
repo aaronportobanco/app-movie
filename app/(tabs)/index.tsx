@@ -1,15 +1,31 @@
-import { View } from "react-native";
-import { Button } from "@/components/ui/button";
-import { Text } from "@/components/ui/text";
-import { useColorScheme } from "@/lib/useColorScheme";
+import SearchBar from "@/components/layout/SearchBar";
+import { View, Image, ScrollView } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Index() {
-  const { toggleColorScheme } = useColorScheme();
+  const router = useRouter();
   return (
-    <View className="flex-1 items-center justify-center gap-4">
-      <Button className="bg-blue-500" onPress={toggleColorScheme}>
-        <Text className="text-center text-white">Click Me </Text>
-      </Button>
+    <View className="flex-1">
+      <Image
+        source={require("@/assets/images/bg.png")}
+        className="absolute z-0 w-full"
+      />
+      <ScrollView
+        className="flex-1 px-5"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
+      >
+        <Image
+          source={require("@/assets/images/logo.png")}
+          className="w-12 h-10 mt-20 mb-5 mx-auto"
+        />
+        <View className="flex-1 mt-5">
+          <SearchBar
+            onPress={() => router.push("/search")}
+            placeholder="Search for a movie..."
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 }

@@ -1,18 +1,19 @@
 import SearchBar from "@/components/layout/SearchBar";
+import MovieCard from "@/components/MovieCard";
+import TrendingCardMovie from "@/components/TrendingCardMovie";
+import { Text } from "@/components/ui/text";
+import { fetchMovies } from "@/services/api";
+import { GetTrendingMovies } from "@/services/appwrite";
+import useFetch from "@/services/useFetch";
+import { useRouter } from "expo-router";
 import {
-  View,
-  Image,
-  ScrollView,
   ActivityIndicator,
   FlatList,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  View,
 } from "react-native";
-import { useRouter } from "expo-router";
-import { fetchMovies } from "@/services/api";
-import useFetch from "@/services/useFetch";
-import { Text } from "@/components/ui/text";
-import MovieCard from "@/components/MovieCard";
-import { GetTrendingMovies } from "@/services/appwrite";
-import TrendingCardMovie from "@/components/TrendingCardMovie";
 
 export default function Index() {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function Index() {
     })
   );
   return (
-    <View className="flex-1 bg-primary-primary">
+    <SafeAreaView className="flex-1 bg-primary-primary">
       <Image
         source={require("@/assets/images/bg.png")}
         className="absolute z-0 w-full"
@@ -111,6 +112,6 @@ export default function Index() {
           </View>
         )}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

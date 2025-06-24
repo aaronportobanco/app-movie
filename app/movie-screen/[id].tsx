@@ -104,7 +104,7 @@ const MovieDetails = () => {
         </View>
       </ScrollView>
       <Button
-        className="flex flex-row items-center justify-center absolute bottom-5 left-0 right-0 z-50 bg-accent-accent rounded-lg py-3.5 mx-5"
+        className="flex flex-row items-center justify-center bg-accent-accent rounded-lg py-3.5 mx-5"
         onPress={() => router.back()}
       >
         <ArrowLeft color={"white"} className="mr-1 mt-0.5" />

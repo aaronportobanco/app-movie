@@ -30,10 +30,6 @@ const Search = () => {
     const timeoutID = setTimeout(async () => {
       if (searchQuery.trim()) {
         await loadMovies();
-        if (movies?.length > 0) {
-          // Actualiza el contador de búsqueda en Appwrite
-          await UpdateSearchCount(searchQuery, movies[0]);
-        }
       } else {
         reset(); // Resetea los resultados si la búsqueda está vacía
       }
@@ -43,6 +39,14 @@ const Search = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]); // Este efecto se ejecuta cada vez que searchQuery cambia
+
+  useEffect(() => {
+    if (movies?.length > 0 && movies?.[0]) {
+      // Actualiza el contador de búsqueda en Appwrite
+      UpdateSearchCount(searchQuery, movies[0]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movies]);
 
   return (
     <View className="flex-1 bg-primary-primary">

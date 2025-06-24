@@ -11,6 +11,8 @@ import { fetchMovies } from "@/services/api";
 import useFetch from "@/services/useFetch";
 import { Text } from "@/components/ui/text";
 import MovieCard from "@/components/MovieCard";
+import { GetTrendingMovies } from "@/services/appwrite";
+import TrendingCardMovie from "@/components/TrendingCardMovie";
 
 export default function Index() {
   const router = useRouter();
@@ -20,6 +22,13 @@ export default function Index() {
   // Aquí no es necesario usar useState ni useEffect, ya que useFetch maneja
   // automáticamente la lógica de carga y error.
   // Además, useFetch se encarga de la limpieza de efectos secundarios.
+
+  const {
+    data: trendingMovies,
+    loading: trendingMoviesLoading,
+    error: trendingMoviesError,
+  } = useFetch(GetTrendingMovies);
+
   const {
     data: movies,
     loading: moviesLoading,
@@ -44,22 +53,45 @@ export default function Index() {
           source={require("@/assets/images/logo.png")}
           className="w-12 h-10 mt-20 mb-5 mx-auto"
         />
-        {moviesLoading ? (
+        {moviesLoading || trendingMoviesLoading ? (
           <ActivityIndicator
             size={"large"}
             color="#0000ff"
             className="mt-10 self-center"
           />
-        ) : moviesError ? (
-          <Text>Error: {moviesError?.message}</Text>
+        ) : moviesError || trendingMoviesError ? (
+          <Text>
+            Error: {moviesError?.message || trendingMoviesError?.message}
+          </Text>
         ) : (
           <View className="flex-1 mt-5">
             <SearchBar
               onPress={() => router.push("/search")}
               placeholder="Search for a movie..."
             />
+            {trendingMovies && trendingMovies.length > 0 && (
+              <View className="mt-10">
+                <Text className="text-lg text-white font-bold mb-3">
+                  Trending Movies
+                </Text>
+                <FlatList
+                  data={trendingMovies}
+                  renderItem={({ item, index }) => <TrendingCardMovie movie={item} index={index}/>}
+                  keyExtractor={(item) => item.movie_ID.toString()}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  ItemSeparatorComponent={() => <View className="w-4" />}
+                  className="mb-1"
+                  contentContainerStyle={{
+                    paddingRight: 16,
+                    paddingBottom: 10,
+                  }}
+                
+                />
+              </View>
+            )}
             <>
-              <Text className="text-white text-lg font-bold mt-5 mb-3">
+              <Text className="text-white text-lg font-bold mt-1 mb-3">
                 Latest Movies
               </Text>
               <FlatList

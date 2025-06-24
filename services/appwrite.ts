@@ -44,7 +44,9 @@ export const UpdateSearchCount = async (query: string, movie: Movie) => {
       );
     } else {
       // 3. Indica que no se encontró un documento y se va a crear uno nuevo
-      console.log("[Appwrite] Documento no encontrado. Creando nuevo registro.");
+      console.log(
+        "[Appwrite] Documento no encontrado. Creando nuevo registro."
+      );
       await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
         search_term: query,
         movie_ID: movie.id,
@@ -55,7 +57,30 @@ export const UpdateSearchCount = async (query: string, movie: Movie) => {
     }
   } catch (error) {
     // 4. Muestra un error específico si algo falla en el proceso
-    console.error("[Appwrite] Error al actualizar el contador de búsqueda:", error);
+    console.error(
+      "[Appwrite] Error al actualizar el contador de búsqueda:",
+      error
+    );
+    throw error; // Re-throw the error to handle it in the calling function
+  }
+};
+
+export const GetTrendingMovies = async (): Promise<
+  TrendingMovie[] | undefined
+> => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.limit(5),
+      Query.orderDesc("search_count"),
+    ]);
+    // 1. Verifica que se obtuvieron resultados
+    console.log("[Appwrite] Películas populares obtenidas:", result.documents);
+    return result.documents as unknown as TrendingMovie[];
+  } catch (error) {
+    console.error(
+      "[Appwrite] Error al obtener las películas populares:",
+      error
+    );
     throw error; // Re-throw the error to handle it in the calling function
   }
 };

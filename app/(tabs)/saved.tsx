@@ -1,12 +1,16 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text} from "react-native";
+import { Bookmark } from "lucide-react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Saved = () => {
   return (
-    <View>
-      <Text className="text-black dark:text-white">Saved</Text>
-    </View>
-  )
-}
+    <SafeAreaView className="bg-primary-primary flex-1 px-10">
+      <View className="flex justify-center items-center flex-1 flex-col gap-5">
+        <Bookmark color={"white"} className="size-10" />
+        <Text className="text-white text-base">Saved</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
 
-export default Saved
+export default Saved;

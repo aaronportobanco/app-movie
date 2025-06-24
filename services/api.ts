@@ -8,7 +8,6 @@ export const TMDB_CONFIG = {
 };
 
 export const fetchMovies = async ({ query }: { query: string }) => {
-
   // Para los endpoints v3, la clave de API debe ir como parámetro en la URL.
   const apiKeyParam = `api_key=${TMDB_CONFIG.API_KEY}`;
 
@@ -30,4 +29,32 @@ export const fetchMovies = async ({ query }: { query: string }) => {
   }
   const data = await response.json();
   return data.results;
+};
+
+export const fetchMovieDetails = async (
+  movie_ID: string
+): Promise<MovieDetails> => {
+  try {
+    const response = await fetch(
+      `${TMDB_CONFIG.BASE_URL}/movie/${movie_ID}?api_key=${TMDB_CONFIG.API_KEY}`,
+      {
+        method: "GET",
+        headers: TMDB_CONFIG.headers,
+      }
+    );
+    if (!response.ok) {
+      const errorData = await response.json();
+      // Muestra el error de la API de TMDB en la consola
+      console.error("Error de la API de TMDB:", errorData);
+      //@ts-ignore
+      throw new Error(
+        `Error al obtener los detalles de la película: ${response.statusText}`
+      );
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al obtener los detalles de la película:", error);
+    throw error; // Re-throw the error to handle it in the calling function
+  }
 };

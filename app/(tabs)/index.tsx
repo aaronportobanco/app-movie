@@ -69,9 +69,8 @@ export default function Index() {
                 numColumns={3}
                 columnWrapperStyle={{
                   justifyContent: "flex-start",
-                  gap: 20,
-                  paddingRight: 5,
-                  marginBottom: 10,
+                  gap: 16,
+                  marginVertical: 16,
                 }}
                 className="mt-2 pb-32"
                 scrollEnabled={false}

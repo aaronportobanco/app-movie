@@ -6,6 +6,7 @@ import MovieCard from "@/components/MovieCard";
 import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
 import SearchBar from "@/components/layout/SearchBar";
+import { UpdateSearchCount } from "@/services/appwrite";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = React.useState("");
@@ -29,10 +30,14 @@ const Search = () => {
     const timeoutID = setTimeout(async () => {
       if (searchQuery.trim()) {
         await loadMovies();
+        if (movies?.length > 0) {
+          // Actualiza el contador de búsqueda en Appwrite
+          await UpdateSearchCount(searchQuery, movies[0]);
+        }
       } else {
         reset(); // Resetea los resultados si la búsqueda está vacía
       }
-    }, 1000); // Espera 1 segundo antes de ejecutar la búsqueda
+    }, 700); // Espera 700ms antes de ejecutar la búsqueda
 
     return () => clearTimeout(timeoutID); // Limpia el timeout si searchQuery cambia antes de que se complete
 
@@ -66,7 +71,7 @@ const Search = () => {
             </View>
             <View className="my-5">
               <SearchBar
-              autoFocus={true}
+                autoFocus={true}
                 placeholder="Search for movies..."
                 value={searchQuery}
                 onChangeText={(text: string) => setSearchQuery(text)}
